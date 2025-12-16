@@ -2,18 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ArticleService } from '../article.service';
 
 @Component({
   selector: 'app-article-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],  // ← Retiré NavbarComponent
-  templateUrl: './article-form.component.html'
+  imports: [CommonModule, FormsModule],
+  templateUrl: './article-form.component.html',
+  styleUrls: ['./article-form.component.css']
 })
 export class ArticleFormComponent implements OnInit {
   article = {
-    id: null as number | null,
-    nom: '',
-    description: '',
+    _id: null as string | null,
+    designation: '',
+    quantite: 0,
     prix: 0
   };
   
@@ -21,7 +23,8 @@ export class ArticleFormComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private articleService: ArticleService
   ) {}
 
   ngOnInit() {
@@ -32,18 +35,49 @@ export class ArticleFormComponent implements OnInit {
     }
   }
 
-  chargerArticle(id: number) {
-    console.log('Charger article:', id);
+  chargerArticle(id: string) {
+    this.articleService.getById(id).subscribe({
+      next: (data) => {
+        this.article = data;
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement de l\'article:', err);
+        alert('Erreur lors du chargement de l\'article');
+      }
+    });
   }
 
   save() {
-    if (!this.article.nom || !this.article.description || this.article.prix <= 0) {
+    if (!this.article.designation || this.article.quantite < 0 || this.article.prix <= 0) {
       alert('Veuillez remplir tous les champs correctement');
       return;
     }
 
-    console.log('Sauvegarder article:', this.article);
-    this.router.navigate(['/articles']);
+    if (this.isEditMode && this.article._id) {
+      // Mise à jour
+      this.articleService.update(this.article._id, this.article).subscribe({
+        next: () => {
+          alert('Article modifié avec succès !');
+          this.router.navigate(['/articles']);
+        },
+        error: (err) => {
+          console.error('Erreur lors de la modification:', err);
+          alert('Erreur lors de la modification de l\'article');
+        }
+      });
+    } else {
+      // Création
+      this.articleService.create(this.article).subscribe({
+        next: () => {
+          alert('Article créé avec succès !');
+          this.router.navigate(['/articles']);
+        },
+        error: (err) => {
+          console.error('Erreur lors de la création:', err);
+          alert('Erreur lors de la création de l\'article');
+        }
+      });
+    }
   }
 
   annuler() {

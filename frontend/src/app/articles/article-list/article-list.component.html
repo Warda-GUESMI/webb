@@ -1,29 +1,53 @@
 <div class="container">
-  <h2>Articles</h2>
+  <div class="header">
+    <h2>📦 Gestion des Articles</h2>
+    <button class="btn-add" routerLink="/articles/nouveau">
+      ➕ Ajouter un article
+    </button>
+  </div>
 
-  <table>
+  <div *ngIf="loading" class="loading">
+    <p>Chargement des articles...</p>
+  </div>
+
+  <div *ngIf="!loading && articles.length === 0" class="empty-state">
+    <p>Aucun article trouvé</p>
+    <button routerLink="/articles/nouveau">Créer le premier article</button>
+  </div>
+
+  <table *ngIf="!loading && articles.length > 0">
     <thead>
       <tr>
-        <th>Nom</th>
-        <th>Description</th>
-        <th>Prix</th>
+        <th>Désignation</th>
+        <th>Quantité</th>
+        <th>Prix unitaire</th>
+        <th>Total</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let a of articles">
-        <td>{{ a.nom }}</td>
-        <td>{{ a.description }}</td>
-        <td>{{ a.prix }} €</td>
-        <td>
-          <button class="edit" [routerLink]="['/articles/modifier', a.id]">Modifier</button>
-          <button class="delete" (click)="delete(a.id)">Supprimer</button>
+        <td class="designation">{{ a.designation }}</td>
+        <td class="center">{{ a.quantite }}</td>
+        <td class="right">{{ a.prix | number:'1.2-2' }} €</td>
+        <td class="right total">{{ (a.prix * a.quantite) | number:'1.2-2' }} €</td>
+        <td class="actions">
+          <button class="btn-edit" [routerLink]="['/articles/modifier', a._id]" title="Modifier">
+            ✏️
+          </button>
+          <button class="btn-delete" (click)="delete(a._id)" title="Supprimer">
+            🗑️
+          </button>
         </td>
       </tr>
     </tbody>
   </table>
-
-  <div class="actions">
-    <button class="add" routerLink="/articles/nouveau">Ajouter un article</button>
-  </div>
 </div>
+<!-- Message d'erreur -->
+  <div *ngIf="error" class="error-message">
+    <div>
+      <strong>{{ error }}</strong>
+      <p>Appuyez sur F12 pour plus de détails</p>
+    </div>
+    <button (click)="chargerArticles()" class="retry-btn">🔄 Réessayer</button>
+  </div>

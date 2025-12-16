@@ -14,4 +14,20 @@ export class CommandeService {
   getAll() {
     return this.collection().find().toArray();
   }
+
+  getById(id: string) {
+    return this.collection().findOne({ _id: new ObjectId(id) });
+  }
+
+  update(id: string, data: Partial<ICommande>) {
+    return this.collection().findOneAndUpdate(
+      { _id: new ObjectId(id) },
+      { $set: data },
+      { returnDocument: 'after' }
+    );
+  }
+
+  delete(id: string) {
+    return this.collection().deleteOne({ _id: new ObjectId(id) });
+  }
 }

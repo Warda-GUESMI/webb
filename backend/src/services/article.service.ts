@@ -18,4 +18,16 @@ export class ArticleService {
   getById(id: string) {
     return this.collection().findOne({ _id: new ObjectId(id) });
   }
+
+  update(id: string, data: Partial<IArticle>) {
+    return this.collection().findOneAndUpdate(
+      { _id: new ObjectId(id) },
+      { $set: data },
+      { returnDocument: 'after' }
+    );
+  }
+
+  delete(id: string) {
+    return this.collection().deleteOne({ _id: new ObjectId(id) });
+  }
 }

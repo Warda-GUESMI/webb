@@ -1,39 +1,60 @@
-<div class="auth-container">
-  <h2>Inscription</h2>
+<div class="auth-page">
+  <div class="auth-container">
+    <div class="auth-header">
+      <h2>Créer un compte</h2>
+      <p>Rejoignez-nous dès aujourd'hui</p>
+    </div>
 
-  <div *ngIf="error" class="error">{{ error }}</div>
-  <div *ngIf="success" class="success">{{ success }}</div>
+    <div class="auth-body">
+      <div *ngIf="error" class="error">{{ error }}</div>
+      <div *ngIf="success" class="success">{{ success }}</div>
 
-  <form (ngSubmit)="register()">
-    <input
-      type="text"
-      placeholder="Nom"
-      [(ngModel)]="name"
-      name="name"
-      required
-    />
+      <form (ngSubmit)="register()">
+        <div class="form-group">
+          <label for="name">Nom complet</label>
+          <input
+            id="name"
+            type="text"
+            placeholder="Jean Dupont"
+            [(ngModel)]="name"
+            name="name"
+            required
+          />
+        </div>
 
-    <input
-      type="email"
-      placeholder="Email"
-      [(ngModel)]="email"
-      name="email"
-      required
-    />
+        <div class="form-group">
+          <label for="email">Adresse email</label>
+          <input
+            id="email"
+            type="email"
+            placeholder="exemple@email.com"
+            [(ngModel)]="email"
+            name="email"
+            required
+          />
+        </div>
 
-    <input
-      type="password"
-      placeholder="Mot de passe"
-      [(ngModel)]="password"
-      name="password"
-      required
-    />
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input
+            id="password"
+            type="password"
+            placeholder="••••••••"
+            [(ngModel)]="password"
+            name="password"
+            required
+          />
+        </div>
 
-    <button type="submit">S’inscrire</button>
-  </form>
+        <button type="submit" class="btn-primary">S'inscrire</button>
+      </form>
+    </div>
 
-  <p>
-    Déjà inscrit ?
-    <a routerLink="/login">Se connecter</a>
-  </p>
+    <div class="auth-footer">
+      <p>
+        Vous avez déjà un compte ?
+        <a routerLink="/login">Se connecter</a>
+      </p>
+    </div>
+  </div>
 </div>
