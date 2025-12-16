@@ -1,0 +1,8 @@
+<app-navbar></app-navbar>
+
+<h2>Ajouter Article</h2>
+
+<input [(ngModel)]="article.nom" placeholder="Nom">
+<input [(ngModel)]="article.prix" type="number" placeholder="Prix">
+
+<button (click)="save()">Enregistrer</button>

@@ -1,0 +1,19 @@
+<app-navbar></app-navbar>
+
+<h2>Commandes</h2>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Date</th>
+    <th>Montant</th>
+    <th>Statut</th>
+  </tr>
+
+  <tr *ngFor="let c of commandes">
+    <td>{{c.idCommande}}</td>
+    <td>{{c.dateCommande | date}}</td>
+    <td>{{c.montantTotal}}</td>
+    <td>{{c.statut}}</td>
+  </tr>
+</table>
