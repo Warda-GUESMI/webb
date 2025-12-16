@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NavbarComponent } from '../../shared/navbar/navbar.component';
 
 @Component({
   selector: 'app-article-form',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavbarComponent],
+  imports: [CommonModule, FormsModule],  // ← Retiré NavbarComponent
   templateUrl: './article-form.component.html'
 })
 export class ArticleFormComponent implements OnInit {
@@ -26,7 +25,6 @@ export class ArticleFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Vérifier si on est en mode édition
     const id = this.route.snapshot.params['id'];
     if (id) {
       this.isEditMode = true;
@@ -35,7 +33,6 @@ export class ArticleFormComponent implements OnInit {
   }
 
   chargerArticle(id: number) {
-    // TODO: Charger l'article depuis votre service
     console.log('Charger article:', id);
   }
 
@@ -45,10 +42,7 @@ export class ArticleFormComponent implements OnInit {
       return;
     }
 
-    // TODO: Appeler votre service pour sauvegarder
     console.log('Sauvegarder article:', this.article);
-    
-    // Rediriger vers la liste
     this.router.navigate(['/articles']);
   }
 

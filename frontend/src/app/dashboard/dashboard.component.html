@@ -1,9 +1,18 @@
-<app-navbar></app-navbar>
+<div class="container">
+  <h1>Dashboard</h1>
 
-<h1>Dashboard</h1>
-
-<div class="cards">
-  <div class="card">Articles</div>
-  <div class="card">Commandes</div>
-  <div class="card">Utilisateurs</div>
+  <div class="cards">
+    <div class="card">
+      <h3>Articles</h3>
+      <p class="stat-number">{{ statistiques.totalArticles }}</p>
+    </div>
+    <div class="card">
+      <h3>Commandes</h3>
+      <p class="stat-number">{{ statistiques.totalCommandes }}</p>
+    </div>
+    <div class="card">
+      <h3>Chiffre d'affaires</h3>
+      <p class="stat-number">{{ statistiques.chiffreAffaires }} €</p>
+    </div>
+  </div>
 </div>

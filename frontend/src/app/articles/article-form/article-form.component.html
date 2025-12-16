@@ -1,8 +1,25 @@
-<app-navbar></app-navbar>
+<div class="container">
+  <h2>{{ isEditMode ? 'Modifier' : 'Ajouter' }} un Article</h2>
 
-<h2>Ajouter Article</h2>
+  <form (ngSubmit)="save()">
+    <div class="form-group">
+      <label>Nom</label>
+      <input [(ngModel)]="article.nom" name="nom" placeholder="Nom de l'article" required>
+    </div>
 
-<input [(ngModel)]="article.nom" placeholder="Nom">
-<input [(ngModel)]="article.prix" type="number" placeholder="Prix">
+    <div class="form-group">
+      <label>Description</label>
+      <input [(ngModel)]="article.description" name="description" placeholder="Description" required>
+    </div>
 
-<button (click)="save()">Enregistrer</button>
+    <div class="form-group">
+      <label>Prix</label>
+      <input [(ngModel)]="article.prix" name="prix" type="number" placeholder="Prix" required>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-primary">Enregistrer</button>
+      <button type="button" class="btn-secondary" (click)="annuler()">Annuler</button>
+    </div>
+  </form>
+</div>

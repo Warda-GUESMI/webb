@@ -1,9 +1,29 @@
-<app-navbar></app-navbar>
+<div class="container">
+  <h2>Articles</h2>
 
-<table>
-  <tr *ngFor="let a of articles">
-    <td>{{ a.nom }}</td>
-    <td>{{ a.prix }}</td>
-    <td><button (click)="delete(a.id)">Supprimer</button></td>
-  </tr>
-</table>
+  <table>
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Description</th>
+        <th>Prix</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let a of articles">
+        <td>{{ a.nom }}</td>
+        <td>{{ a.description }}</td>
+        <td>{{ a.prix }} €</td>
+        <td>
+          <button class="edit" [routerLink]="['/articles/modifier', a.id]">Modifier</button>
+          <button class="delete" (click)="delete(a.id)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="actions">
+    <button class="add" routerLink="/articles/nouveau">Ajouter un article</button>
+  </div>
+</div>

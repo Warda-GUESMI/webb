@@ -1,19 +1,22 @@
-<app-navbar></app-navbar>
+<div class="container">
+  <h2>Commandes</h2>
 
-<h2>Commandes</h2>
-
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Date</th>
-    <th>Montant</th>
-    <th>Statut</th>
-  </tr>
-
-  <tr *ngFor="let c of commandes">
-    <td>{{c.idCommande}}</td>
-    <td>{{c.dateCommande | date}}</td>
-    <td>{{c.montantTotal}}</td>
-    <td>{{c.statut}}</td>
-  </tr>
-</table>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Montant</th>
+        <th>Statut</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of commandes">
+        <td>{{ c.id }}</td>
+        <td>{{ c.dateCommande | date:'short' }}</td>
+        <td>{{ c.montantTotal }} €</td>
+        <td>{{ c.statut }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
